@@ -12,9 +12,9 @@ object ScalaJdbcConnectSelect {
   def main(args: Array[String]) {
     // connect to the database named "mysql" on the localhost
     val driver = "com.mysql.jdbc.Driver"
-    val url = "jdbc:mysql://localhost/mysql"
-    val username = "root"
-    val password = "root"
+    val url = "jdbc:mysql://localhost/pets"
+    val username = ""
+    val password = ""
 
     // there's probably a better way to do this
     var connection:Connection = null
