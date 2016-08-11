@@ -1,19 +1,19 @@
 create table users (
-  id binary(16) primary key,
-  name varchar(32) not null unique,
-  created_on datetime not null default now()
-);
-
-create table pets (
-  id binary(16) primary key,
-  owner binary(16) references users(id),
-  pet_type varchar(32) references pet_types(name),
-  name varchar(32) not null,
-  created_on datetime not null default now()
+ id text primary key,
+ name text not null unique,
+ created_on timestamp with time zone not null default now()
 );
 
 create table pet_types (
-  name varchar(32) primary key,
-  creator binary(16) references users(id),
-  created_on datetime not null default now()
+ name text primary key,
+ creator text references users(id),
+ created_on timestamp with time zone not null default now()
+);
+
+create table pets (
+ id text primary key,
+ owner text references users(id),
+ pet_type text references pet_types(name),
+ name text not null,
+ created_on timestamp with time zone not null default now()
 );
