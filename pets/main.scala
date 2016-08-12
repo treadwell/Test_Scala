@@ -116,6 +116,21 @@ object main {
 
   def export(c: Connection, fp: String) {
     println("export")
+    val s = c.createStatement()
+
+    // set query
+    val query: String = """select users.name, pet_types.name, pets.name from users, pet_types, pets
+        where users.id=pets.owner and pets.pet_type=pet_types.name"""
+    // run query
+    val resultSet = s.executeQuery(query)
+
+    // write csv
+    while (resultSet.next()) {
+        val owner = resultSet.getString(1)
+        val petType = resultSet.getString(2)
+        val pet = resultSet.getString(3)
+        println("owner, pet type, pet = " + owner + ", " + petType + ", " + pet)
+    }
   }
 
   def print(c: Connection) {
