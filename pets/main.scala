@@ -2,6 +2,7 @@ import com.github.tototoshi.csv._
 import java.lang.ArrayIndexOutOfBoundsException
 import java.util.UUID.{ randomUUID }
 import java.sql.{ PreparedStatement, Statement, Driver, DriverManager, Connection }
+import java.io.File
 
 object main {
 
@@ -124,13 +125,22 @@ object main {
     // run query
     val resultSet = s.executeQuery(query)
 
+    // open connection to file
+    val f = new File(fp)
+    val writer = CSVWriter.open(f) // By default this overwrites the existing file
+
     // write csv
     while (resultSet.next()) {
         val owner = resultSet.getString(1)
         val petType = resultSet.getString(2)
         val pet = resultSet.getString(3)
         println("owner, pet type, pet = " + owner + ", " + petType + ", " + pet)
+        writer.writeRow(List(owner, petType, pet))
     }
+
+    // close connection to file
+    writer.close()
+
   }
 
   def print(c: Connection) {
